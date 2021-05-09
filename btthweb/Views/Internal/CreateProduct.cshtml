@@ -1,0 +1,63 @@
+﻿@model btthweb.Models.FormViewModel.CreateProduct
+
+@{
+    ViewBag.Title = "CreateProduct";
+    Layout = "~/Views/share/_layout.cshtml";
+}
+
+<h2>Thêm Sản Phẩm Mới</h2>
+@*@Html.Partial("Menu")*@
+<div class="col-sm-9">
+    @*//content here*@
+
+    <div class="container-fluid">
+
+        <div class="">
+            <div class="center-content row">
+
+                <div class="col-md-12 center-margin mrg25T">
+
+                    <div class="">
+
+                        <div class="font-black text-center">
+
+                        </div>
+                        @using (Html.BeginForm("CreateProduct", "Internal", FormMethod.Post, new { @class = "col-md-12   mrg25T" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <span>Tên sản phẩm</span>
+                                @Html.TextBoxFor(x => x.SanPham.Tensp, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.SanPham.Tensp)
+                            </div>
+                            <div class="form-group">
+                                <span>Giá</span>
+                                @Html.TextBoxFor(x => x.SanPham.Gia, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.SanPham.Gia)
+                            </div>
+
+                            <div class="form-group">
+                                <span>Mô tả sản phẩm</span>
+                                @Html.TextBoxFor(x => x.SanPham.MoTaSP, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.SanPham.MoTaSP)
+                            </div>
+
+                            <div class="form-group">
+                                <span>Ảnh</span>
+                                <input type="file" 
+                                       @Html.TextBoxFor(x => x.SanPham.Anh, new { @class = "form-control" })
+                                       @Html.ValidationMessageFor(x => x.SanPham.Anh)
+                            </div>
+
+                            <div class="form-group">
+                                @Html.ValidationMessage("")
+                            </div>
+                            <button class="btn btn-info btn-block" style="margin-left=85%">CREATE</button>
+                        }
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

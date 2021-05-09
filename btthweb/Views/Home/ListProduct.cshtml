@@ -1,0 +1,154 @@
+﻿@model btthweb.Models.FormViewModel.ListProductViewModel
+
+@{
+    ViewBag.Title = "ListProduct";
+    Layout = "~/Views/share/_layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        </div>
+        <div class="card-body">
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <div id="dataTable_wrapper" class="dataTable_wrapper dt-bootstrap4">
+
+                        <div class="row">
+                            @using (Html.BeginForm("FindProduct", "Internal", FormMethod.Post,
+                                                                new { @class = " mrg25T col-sm-12" }))
+
+                            {
+                                <div class="row">
+
+                                    <div class="form-group col-sm-3">
+                                        <span>Tên Sản Phẩm</span>
+                                        @Html.TextBoxFor(x => x.Tensp, new { @class = "form-control ", id = "Tensanpham" })
+
+                                    </div>
+                                    <div class="form-group col-sm-3 ">
+                                        <span style="visibility: hidden">Search</span>
+                                        <div style="width: 100%">
+                                            <input type="submit" class="btn btn-info btn-block" value="Search" />
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3 ">
+                                        <span style="visibility: hidden">Reset</span>
+                                        <div style="width: 100%">
+                                            <a href="@Url.Action("Index","Home")" class="btn btn-info btn-block">Reset</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                        <div class="row">
+                            @*<div class="col-sm-12">*@
+                                <table class="table table-bordered dataTable" id="SanPham" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info"
+                                       style="width: 100%;">
+                                    <thead>
+                                        @*<tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Name:
+                                                activate to sort column descending" style="width: 58px;" aria-sort="ascending">ID</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 61px;">Tên Sản Phẩm</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 50px;">Giá</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 31px;">Mô Tả Sản Phẩm</th>
+                                            <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 31px;">Ảnh</th>
+                                        </tr>*@
+
+                                    @*<tfoot>
+                                        <tr>
+                                            <th rowspan="1" colspan="1">ID</th>
+                                            <th rowspan="1" colspan="1">Tên Sản Phẩm</th>
+                                            <th rowspan="1" colspan="1">Giá</th>
+                                            <th rowspan="1" colspan="1">Mô Tả Sản Phẩm</th>
+                                            <th rowspan="1" colspan="1">Ảnh</th>
+                                        </tr>
+                                    </tfoot>*@
+                                    <tbody>
+                                        @foreach (var sanpham in Model.ListProduct)
+                                        {
+                                            <div class="col-3"style="margin-bottom:25px">
+                                                <div class="image"style="margin-bottom:20px">
+                                                    <img class="img-responsive"src="~/AppFile/Img/@sanpham.Anh" height="250" width="220"/>
+                                                </div>
+                                                <div style="border-top:3px solid #808080">
+                                                    <h5>@sanpham.Tensp</h5>
+                                                    <h6>@sanpham.Gia</h6>
+                                                    <h6>@sanpham.MoTaSP</h6>
+                                                </div>
+                                            </div>
+                                            @*<tr role="row" class="odd">
+                                                <td class="sorting_1">@sanpham.ID</td>
+                                                <td>@sanpham.Tensp</td>
+                                                <td>@sanpham.Gia</td>
+                                                <td>@sanpham.MoTaSP</td>
+                                                <td>@sanpham.Anh</td>
+                                            </tr>*@
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var table = $('#SanPham')
+            .on('init.dt', function () {
+
+                $('#SanPham').removeClass('display-none');
+
+
+            }).DataTable({
+                "searching": false,
+                "pageLength": 10,
+
+                "deferRender": true,
+                stateSave: true,
+                "columnDefs": [
+                    { "responsivePriority": 1, "targets": 0 },
+                    { "responsivePriority": 2, "targets": -1 }
+
+                ]
+
+            });
+
+        // Get the column API object
+
+    });
+</script>
+<script type="text/javascript">
+
+            $(function() {
+                var availableTags = [
+                    @foreach (var sanpham in Model.ListProduct)
+                    {
+                       @: "@sanpham.Tensp" ,
+
+                    }
+                ];
+                $( "#SanPham" ).autocomplete({
+                    source: availableTags
+                    , autoFocus: true
+                });
+            } );
+</script>*@
+
